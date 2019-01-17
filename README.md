@@ -11,7 +11,14 @@ Run `yarn add absence.io` or `npm install absence.io`.
 ```ts
 import {AbsenceIO} from 'absence.io';
 
-const absenceIO = new AbsenceIO('my-api-key'); // API key is only required for checks
+const absenceIO = new AbsenceIO({
+  apiKey: '<your API key here>',
+  apiKeyId: '<your API key ID here>'
+});
+
+absenceIO.api.absence.retrieveAbsences()
+  .then(absences => console.log(absences));
+
 ```
 
 ## Build and test
