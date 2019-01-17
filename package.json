@@ -2,7 +2,8 @@
   "author": "Florian Keller <github@floriankeller.de>",
   "dependencies": {
     "@types/node": "10.12.7",
-    "axios": "0.18.0"
+    "axios": "0.18.0",
+    "hawk": "7.0.10"
   },
   "description": "An absence.io API client",
   "devDependencies": {

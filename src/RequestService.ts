@@ -1,25 +1,24 @@
 import axios, {AxiosRequestConfig} from 'axios';
+const hawk = require('hawk');
 
 import {ExceptionMapper, InvalidResponseError} from './APIException';
 import {ClientOptions, HttpMethod, RequestOptions} from './interfaces/';
 
 export class RequestService {
   private apiUrl = 'https://app.absence.io/api/v2';
-  private readonly apiKey?: string;
-  private readonly apiKeyId?: string;
+  private readonly apiKey: string;
+  private readonly apiKeyId: string;
 
   constructor(options: ClientOptions) {
-    if (options) {
-      if (options.apiUrl) {
-        this.setApiUrl(options.apiUrl);
-      }
-      this.apiKey = options.apiKey;
-      this.apiKeyId = options.apiKeyId;
+    if (options.apiUrl) {
+      this.setApiUrl(options.apiUrl);
     }
+    this.apiKey = options.apiKey;
+    this.apiKeyId = options.apiKeyId;
   }
 
   public isApiKeySet(): boolean {
-    return Boolean(this.apiKey);
+    return Boolean(this.apiKey) && Boolean(this.apiKeyId);
   }
 
   public delete<T>(endpoint: string, parameters?: RequestOptions): Promise<T> {
@@ -43,17 +42,20 @@ export class RequestService {
   }
 
   private async request<T>(method: HttpMethod, endpoint: string, parameters?: RequestOptions): Promise<T> {
-    const params = {
-      ...parameters,
-      apiKey: this.apiKey,
-      apiKeyId: this.apiKeyId,
+    const credentials = {
+      id: this.apiKeyId,
+      key: this.apiKey,
+      algorithm: 'sha256',
     };
 
     const config: AxiosRequestConfig = {
       method,
-      params,
+      params: parameters,
       url: `${this.apiUrl}${endpoint}`,
     };
+
+    const hawkHeader = hawk.client.header(config.url, config.method, {credentials});
+    config.headers.Authorization = hawkHeader.field;
 
     try {
       const {data, headers} = await axios.request<T>(config);
