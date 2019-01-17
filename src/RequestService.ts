@@ -6,13 +6,15 @@ import {ClientOptions, HttpMethod, RequestOptions} from './interfaces/';
 export class RequestService {
   private apiUrl = 'https://app.absence.io/api/v2';
   private readonly apiKey?: string;
+  private readonly apiKeyId?: string;
 
-  constructor(options?: ClientOptions) {
+  constructor(options: ClientOptions) {
     if (options) {
       if (options.apiUrl) {
         this.setApiUrl(options.apiUrl);
       }
       this.apiKey = options.apiKey;
+      this.apiKeyId = options.apiKeyId;
     }
   }
 
@@ -44,6 +46,7 @@ export class RequestService {
     const params = {
       ...parameters,
       apiKey: this.apiKey,
+      apiKeyId: this.apiKeyId,
     };
 
     const config: AxiosRequestConfig = {

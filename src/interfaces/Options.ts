@@ -8,6 +8,7 @@ export type HttpMethod = 'delete' | 'get' | 'post' | 'put';
 
 export interface ClientOptions {
   apiKey: string;
+  apiKeyId: string;
   apiUrl?: string;
 }
 

@@ -14,13 +14,7 @@ import {RequestService} from './RequestService';
 export class AbsenceIO {
   public api: API;
 
-  constructor(apiKey?: string);
-  constructor(options?: ClientOptions);
-  constructor(options?: ClientOptions | string) {
-    if (typeof options === 'string') {
-      options = {apiKey: options};
-    }
-
+  constructor(options: ClientOptions) {
     this.api = {
       absence: new AbsenceAPI(new RequestService(options)),
       allowanceType: new AllowanceTypeAPI(new RequestService(options)),
