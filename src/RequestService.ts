@@ -48,14 +48,17 @@ export class RequestService {
       algorithm: 'sha256',
     };
 
+    const url = `${this.apiUrl}${endpoint}`;
+    const hawkHeader = hawk.client.header(url, method, {credentials});
+
     const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: hawkHeader.header,
+      },
       method,
       params: parameters,
-      url: `${this.apiUrl}${endpoint}`,
+      url,
     };
-
-    const hawkHeader = hawk.client.header(config.url, config.method, {credentials});
-    config.headers.Authorization = hawkHeader.field;
 
     try {
       const {data, headers} = await axios.request<T>(config);
