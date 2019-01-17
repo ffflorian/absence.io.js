@@ -27,7 +27,7 @@ export class AllowanceTypeAPI {
    */
   public retrieveAllowanceType(id: string): Promise<any> {
     this.checkApiKey();
-    const endpoint = Endpoint.AllowanceType.allowanceTypes(id)
+    const endpoint = Endpoint.AllowanceType.allowanceTypes(id);
     return this.requestService.get(endpoint);
   }
 
@@ -36,7 +36,7 @@ export class AllowanceTypeAPI {
    */
   public retrieveAllowanceTypes(): Promise<any> {
     this.checkApiKey();
-    const endpoint = Endpoint.AllowanceType.allowanceTypes()
+    const endpoint = Endpoint.AllowanceType.allowanceTypes();
     return this.requestService.post(endpoint);
   }
 }

@@ -30,4 +30,31 @@ export class AbsenceAPI {
     const endpoint = Endpoint.Absence.create();
     return this.requestService.post(endpoint);
   }
+
+  /**
+   * Retrieve an absence
+   */
+  public retrieveAbsence(id: string): Promise<any> {
+    this.checkApiKey();
+    const endpoint = Endpoint.Absence.absences(id);
+    return this.requestService.post(endpoint);
+  }
+
+  /**
+   * Retrieve absences
+   */
+  public retrieveAbsences(): Promise<any> {
+    this.checkApiKey();
+    const endpoint = Endpoint.Absence.absences();
+    return this.requestService.post(endpoint);
+  }
+
+  /**
+   * Update an existing absence
+   */
+  public updateAbsence(id: string): Promise<any> {
+    this.checkApiKey();
+    const endpoint = Endpoint.Absence.absences(id);
+    return this.requestService.put(endpoint);
+  }
 }

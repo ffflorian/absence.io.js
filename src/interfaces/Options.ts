@@ -12,5 +12,4 @@ export interface ClientOptions {
   apiUrl?: string;
 }
 
-export interface RequestOptions {
-}
+export interface RequestOptions {}
