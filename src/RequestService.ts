@@ -43,9 +43,9 @@ export class RequestService {
 
   private async request<T>(method: HttpMethod, endpoint: string, parameters?: RequestOptions): Promise<T> {
     const credentials = {
+      algorithm: 'sha256',
       id: this.apiKeyId,
       key: this.apiKey,
-      algorithm: 'sha256',
     };
 
     const url = `${this.apiUrl}${endpoint}`;
