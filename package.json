@@ -36,7 +36,7 @@
   "repository": "https://github.com/ffflorian/absence.io.js.git",
   "scripts": {
     "build": "tsc",
-    "build:docs": "typedoc --out docs/ --mode modules --excludePrivate --excludeExternals --exclude \"**/*(index|Endpoints|RequestService).ts\"",
+    "build:docs": "typedoc",
     "clear": "rimraf dist",
     "clear:docs": "rimraf docs",
     "dist": "yarn clear && yarn build",
@@ -47,6 +47,5 @@
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.ts\"",
     "test": "ts-node -P tsconfig.jasmine.json node_modules/.bin/jasmine"
   },
-  "types": "dist/index.d.ts",
   "version": "0.0.1"
 }
